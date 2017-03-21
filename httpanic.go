@@ -53,8 +53,9 @@ func Middleware(next http.Handler) http.Handler {
 				if hp, ok := e.(HTTPError); ok {
 					// Handle http coded errors gracefully
 					http.Error(w, hp.Error(), hp.HTTPStatus())
+				} else {
+					panic(e)
 				}
-				panic(e)
 			}
 		}()
 		next.ServeHTTP(w, r)
